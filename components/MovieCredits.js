@@ -6,9 +6,9 @@ import CastMemberCard from "./CastMemberCard"
 export default function MovieCredits({ movieId }) {
     const [cast, setCast] = useState([])
     const controller = new AbortController()
+    let didCancel = false;
 
-
-    const filterTop10ActingMembers = (castMembers: CastMember[]) => {
+    const filterTop10ActingMembers = (castMembers) => {
         const filteredCast = castMembers
             .sort((a, b) => a.order - b.order)
             .slice(0, 10)
@@ -20,13 +20,30 @@ export default function MovieCredits({ movieId }) {
         fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?`
             + new URLSearchParams({ api_key: process.env.MOVIE_API_KEY, }),
             { method: "GET", signal: controller.signal })
-            .then(response => response.json())
-            .then(data => filterTop10ActingMembers(data.cast))
-            .catch()
+            .then(response => {
+                if (!didCancel) {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (!didCancel) {
+                    filterTop10ActingMembers(data.cast);
+                }
+            })
+            .catch(error => {
+                if (!didCancel) {
+                    if (error.name === 'AbortError') {
+                        console.log('Fetch request was cancelled');
+                    } else {
+                        console.error('Another error happened: ', error.message);
+                    }
+                }
+            });
 
         return () => {
-            controller.abort()
-        }
+            didCancel = true;
+            controller.abort();
+        };
     }, [])
 
 
