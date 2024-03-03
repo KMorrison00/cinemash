@@ -1,13 +1,7 @@
-//import React from 'react';
 import { View, Text, StyleSheet , Image} from 'react-native';
 import {FontAwesome} from "@expo/vector-icons";
 import colors from "../constants/colors";
 import {useNavigation} from '@react-navigation/native';
-
-
-
-
-
 
 function TopBar() {
     const navigation = useNavigation();

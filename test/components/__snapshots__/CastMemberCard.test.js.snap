@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CastMemberCard renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "height": 140,
+      "width": 100,
+    }
+  }
+>
+  <Image
+    source={
+      {
+        "uri": "https://image.tmdb.org/t/p/w500/https://image.tmdb.org/t/p/w500/",
+      }
+    }
+    style={
+      {
+        "borderRadius": 5,
+        "height": 100,
+        "width": 80,
+      }
+    }
+  />
+  <Text
+    style={
+      {
+        "color": "#FFF",
+        "fontSize": 13,
+      }
+    }
+  >
+    John Doe
+  </Text>
+</View>
+`;

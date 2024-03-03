@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from "react-native"
 import MovieCard from "./MovieCard"
 
-function export default MovieSection({ movies, sectionTitle }) {
+export default function MovieSection({ movies, sectionTitle }) {
     return (
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>
