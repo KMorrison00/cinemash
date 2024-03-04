@@ -4,7 +4,7 @@ import { Avatar, Divider, Card } from 'react-native';
 import { ScrollView } from 'react-native'
 
 
-
+// sample user profiles for user and potential friends
 export function UserProfileInfo() {
 
  const similarUsersData = [

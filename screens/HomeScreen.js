@@ -10,45 +10,22 @@ import IconButton from "../components/IconButton";
 import axios from 'axios';
 
 
-
-export  function HomeScreen() {
-
+export function HomeScreen() {
   const useSwiper = useRef(null);
   const handleOnSwipedLeft = () => useSwiper.current.swipeLeft()
   const handleOnSwipedRight = () => useSwiper.current.swipeRight()
+  // Define state variables for the results page index, the list of movies, and the current index
   const [resultsPageIndex, setResultsPageIndex] = useState(0);
   const [movies, setMovies] = useState([]);
- // const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  // Define the API URL
   const API_URL ='https://api.themoviedb.org/3/';
 
-    async function fetchMovies({genre}) {
+  async function fetchMovies({genre}) {
     try {
-
-    console.log('tried fetching movies')
-    const {data} = await axios.get(`${API_URL}trending/movie/week?api_key=${process.env.MOVIE_API_KEY}`);
-
-   // const filesystem = require('fs');
-
-    // Use array buffer! 
-
-  /*  axios.get(`${API_URL}trending/movie/week?api_key=${MOVIE_API_KEY}`,{ responseType:"arraybuffer"})
-    .then(response =>
-     {
-        // console.log(response.data);
-        RNFS.writeFile('moviesData.json', response.data, function (err)
-         {
-            console.log(err);
-         });
-     }).catch(err => 
-     {
-        console.log(err)
-     });
-
-      //const data = require('./fakeData.json')
-      data = response.data;
-      */
-
+      console.log('tried fetching movies')
+      // Fetch the movies from the API
+      const {data} = await axios.get(`${API_URL}trending/movie/week?api_key=${process.env.MOVIE_API_KEY}`);
       setMovies(movies.concat(data.results))
       console.log('success')
     } catch (error){
@@ -57,18 +34,21 @@ export  function HomeScreen() {
     }
   }
 
+  // Fetch movies when the component mounts and when the results page index changes
   useEffect(()=>{
     fetchMovies('')
   }, [resultsPageIndex])
 
+  // Define a function to go to the next movie
   function nextMovie() {
+    // If nearing the end of the list, fetch more movies
     if (currentIndex === movies.length - 3) {
       // if nearing end fetch more movies, 
       setResultsPageIndex(resultsPageIndex + 1)
     } 
   }
 
-return (
+  return (
     <View style={styles.container}>
       <TopBar />
       {movies.length > 0 &&
@@ -121,10 +101,8 @@ return (
           backgroundColor={colors.like}
           />
       </View>
-  </View>
+    </View>
   );
-
-
 }
 
 const styles = StyleSheet.create({

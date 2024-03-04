@@ -1,10 +1,13 @@
+// Importing necessary dependencies
 import React from 'react'
 import { View, Text, Image, Modal, TouchableOpacity, StyleSheet } from 'react-native'
 import colors from '../constants/colors'
-//import { POSTER_API_URL } from "@env"
 import MovieInfoModal from "./MovieInfoModal"
 
+// API URL for movie posters
 const POSTER_API_URL = 'https://image.tmdb.org/t/p/w500/';
+
+// Card component
 const Card = ({ movie }) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
@@ -13,6 +16,7 @@ const Card = ({ movie }) => {
 
   return (
     <>
+      {/* Modal for displaying movie information */}
       <Modal
         visible={isOpen}
         transparent={true}
@@ -23,18 +27,21 @@ const Card = ({ movie }) => {
         <MovieInfoModal movie={movie} />
       </Modal>
 
+      {/* Card container */}
       <TouchableOpacity style={{ height: "100%" }} onPress={openModal}>
         <View
           activeOpacity={1}
           style={styles.card}
         >
+          {/* Movie poster */}
           <Image
             style={styles.image}
             source={{ uri: `${POSTER_API_URL}${movie.poster_path}` }}
             resizeMode="cover"
           />
-          <View style={styles.photoDescriptionContainer}>
 
+          {/* Movie description */}
+          <View style={styles.photoDescriptionContainer}>
             <Text style={styles.text}>
               {`${movie.original_title}`}
             </Text>
