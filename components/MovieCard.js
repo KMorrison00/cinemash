@@ -1,14 +1,16 @@
-import { useState } from "react"
-import { View, Modal, Text, Image, StyleSheet, TouchableOpacity } from "react-native"
-
-import MovieInfoModal from "./MovieInfoModal"
+import { useState } from "react";
+import { View, Modal, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import MovieInfoModal from "./MovieInfoModal";
 
 export default function MovieCard({ movie, height, width }) {
-    const imageSrc = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
-    const [visible, setVisible] = useState(false)
+    // image source URL
+    const imageSrc = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+    
+    // Define a state variable to control the visibility of the modal
+    const [visible, setVisible] = useState(false);
 
-    const openModal = () => setVisible(true)
-    const closeModal = () => setVisible(false)
+    const openModal = () => setVisible(true);
+    const closeModal = () => setVisible(false);
 
     return (
         <>
@@ -18,12 +20,17 @@ export default function MovieCard({ movie, height, width }) {
                 onRequestClose={closeModal}
                 animationType="slide"
             >
+                {/* Touchable area to close the modal */}
                 <TouchableOpacity onPress={closeModal} style={{ height: "100%" }} />
+                
+                {/* Custom MovieInfoModal component */}
                 <MovieInfoModal movie={movie} />
             </Modal>
 
+            {/* Touchable area to open the modal */}
             <TouchableOpacity onPress={openModal}>
                 <View style={styles.movieCard}>
+                    {/* If movie has a backdrop_path, display the image, otherwise display the movie title */}
                     {movie.backdrop_path
                         ? <Image
                             style={{ height, width, ...styles.image }}
@@ -36,9 +43,8 @@ export default function MovieCard({ movie, height, width }) {
                 </View>
             </TouchableOpacity>
         </>
-    )
+    );
 }
-
 const styles = StyleSheet.create({
     movieCard: {
         marginVertical: 14,

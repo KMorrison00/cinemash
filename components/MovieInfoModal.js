@@ -4,19 +4,21 @@ import { AntDesign as AntDesignIcon } from "@expo/vector-icons"
 import MovieCredits from "./MovieCredits";
 
 export default function MovieInfoModal({ movie }) {
-    const imageSrc = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
-    const releaseYear = movie?.release_date ? new Date(movie.release_date).getFullYear() : "No release date"
+    const imageSrc = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+    
+    // Extract the release year from the movie release date or set it to "No release date" if not available
+    const releaseYear = movie?.release_date ? new Date(movie.release_date).getFullYear() : "No release date";
 
     return (
         <View style={styles.container}>
             <View style={styles.topRow}>
+                {/* If movie has a backdrop_path, display the image, otherwise display the movie title */}
                 {movie.backdrop_path
                     ? <Image style={styles.image} source={{ uri: imageSrc }} />
                     : <View style={styles.viewAlt}>
                         <Text style={styles.textAlt}>{movie.title}</Text>
                     </View>
                 }
-
                 <View style={styles.infosContainer}>
                     <Text
                         adjustsFontSizeToFit={true}
@@ -26,20 +28,23 @@ export default function MovieInfoModal({ movie }) {
                     >
                         {movie.title}
                     </Text>
-
                     <View style={styles.subtitlesRow}>
                         <Text style={styles.subtitle}>
                             {releaseYear}
                         </Text>
+                        
+                        {/* Display a like icon */}
                         <AntDesignIcon
                             name="like1"
                             size={12}
                             color="#C1C1C1"
                             style={{ marginRight: 2 }}
                         />
+                        {/* Display the movie rating */}
                         <Text style={styles.subtitle}>
                             {movie.vote_average}/10
                         </Text>
+                        {/* Display "+18" if the movie is for adults */}
                         <Text style={styles.subtitle}>
                             {movie.adult ? +18 : ""}
                         </Text>
@@ -53,7 +58,7 @@ export default function MovieInfoModal({ movie }) {
 
             <MovieCredits movieId={movie.id} />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

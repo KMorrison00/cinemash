@@ -2,8 +2,9 @@ import { View, Text, Image, StyleSheet } from "react-native"
 
 
 export default function CastMemberCard({ castMember }) {
+    // This code defines a functional component called CastMemberCard that takes a castMember object as a prop.
     const imageSrc = `https://image.tmdb.org/t/p/w500/${castMember.profile_path}`
-
+    // It creates a URL for the cast member's profile picture using their profile_path property.
     return (
         <View style={styles.container}>
             <Image
